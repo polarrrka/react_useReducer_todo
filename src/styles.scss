@@ -1,0 +1,156 @@
+:root {
+  --bg-color-light: #F9E8CA;
+  --bg-color-dark: #F5D9A7;
+  --primary-color: #8BB398;
+  --secondary-color: #F89987;
+  // palette: https://www.colourlovers.com/palette/2534513/Todos_mis_desastres
+  --text-color: 	#555555;
+}
+
+html {
+  background-color: var(--bg-color-dark);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.app {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  background-color: var(--bg-color-light);
+}
+
+.form {
+  position: relative;
+  display: flex;
+}
+
+.btn--add {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  padding: 8.2px;
+  color: var(--bg-color-dark);
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  transition: all .1s ease-in;
+
+  &:hover {
+    background-color: var(--bg-color-dark);
+    color: var(--primary-color);
+  }
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+
+.add-todo {
+  margin: 10px 0px 25px 0px;
+  padding: 8px;
+  border: none;
+  width: 50vw;
+  display: flex;
+  color: var(--bg-color-light);
+  background-color: var(--primary-color);
+
+  &::placeholder {
+    color: var(--bg-color-light);
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.todo-container {
+  margin-bottom: 5px;
+  background-color: var(--bg-color-dark);
+  width: 50vw;
+  display: flex;
+  justify-content: space-between;
+ // box-shadow: 2px 2px 0px 0px rgba(139,179,152,1);
+  cursor: pointer;
+  color: var(--text-color);
+
+  &:last-child {
+    margin-bottom: 3rem;
+  }
+}
+
+.todo {
+  font-size: 0.8rem;
+  padding: 5px;
+
+  label {
+    color: var(--secondary-color);
+  }
+
+  &__checkbox {
+    padding: 0;
+    margin: 6px 10px 0px 5px;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+
+    &:focus {
+      outline: none;
+    }
+
+    &:checked {
+      background-color: var(--primary-color);
+    }
+  }
+
+  &__edit-input {
+    background-color: var(--bg-color-light);
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    color: var(--text-color);
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.btns {
+  background: var(--primary-color);
+  display: flex;
+}
+
+.btn {
+  padding: 8px;
+  color: var(--bg-color-dark);
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+   border: none;
+   transition: all .1s ease-in;
+
+   &:hover {
+     background: var(--bg-color-dark);
+     color: var(--primary-color);
+   }
+}

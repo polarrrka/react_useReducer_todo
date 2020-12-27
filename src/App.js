@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from "react";
 import Todo from "./Todo";
-import "./styles.css";
+import "./styles.scss";
 
 const ACTIONS = {
   ADD_TODO: "add-todo",
@@ -61,31 +61,41 @@ export default function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!name) return;
     dispatch({ type: ACTIONS.ADD_TODO, payload: { name: name } });
     setName("");
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </form>
-
-      {todos.map((todo) => {
-        return (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            setName={setName}
-            dispatch={dispatch}
-            ACTIONS={ACTIONS}
+    <div className="container">
+      <div className="app">
+        <h1> to.dos </h1>
+        <form className="form" onSubmit={handleSubmit}>
+          <input
+            className="add-todo"
+            type="text"
+            value={name}
+            placeholder="add task"
+            onChange={(e) => setName(e.target.value)}
           />
-        );
-      })}
-    </>
+          <button className="btn--add" onClick={(e) => handleSubmit(e)}>
+            {" "}
+            ✔{" "}
+          </button>
+        </form>
+
+        {todos.map((todo) => {
+          return (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              setName={setName}
+              dispatch={dispatch}
+              ACTIONS={ACTIONS}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }

@@ -12,13 +12,16 @@ export default function Todo({ todo, dispatch, ACTIONS }) {
   }
 
   return (
-    <ul>
-      <li
+    <div className="todo-container">
+      <label
+        className="todo"
         style={{
-          color: todo.complete ? "grey" : "black"
+          color: todo.complete ? "grey" : "#333333",
+          textDecoration: todo.complete ? "line-through" : ""
         }}
       >
         <input
+          className="todo__checkbox"
           type="checkbox"
           onClick={() =>
             dispatch({
@@ -33,6 +36,7 @@ export default function Todo({ todo, dispatch, ACTIONS }) {
           style={{ display: todo.edit ? "inline-block" : "none" }}
         >
           <input
+            className="todo__edit-input"
             type="value"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -40,8 +44,10 @@ export default function Todo({ todo, dispatch, ACTIONS }) {
         </form>
 
         {todo.edit ? "" : todo.name}
-
+      </label>
+      <div className="btns">
         <button
+          className="btn"
           onClick={() =>
             dispatch({
               type: ACTIONS.DELETE_TODO,
@@ -49,19 +55,25 @@ export default function Todo({ todo, dispatch, ACTIONS }) {
             })
           }
         >
-          x
+          ✖
         </button>
         <button
-          onClick={() =>
-            dispatch({
-              type: ACTIONS.EDIT_TODO,
-              payload: { id: todo.id, name: todo.name }
-            })
-          }
+          className="btn"
+          onClick={() => {
+            todo.edit
+              ? dispatch({
+                  type: ACTIONS.UPDATE_TODO,
+                  payload: { name: name, id: todo.id }
+                })
+              : dispatch({
+                  type: ACTIONS.EDIT_TODO,
+                  payload: { id: todo.id, name: todo.name }
+                });
+          }}
         >
-          edit
+          {todo.edit ? "✔" : "✎"}
         </button>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
