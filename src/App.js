@@ -6,13 +6,15 @@ const ACTIONS = {
   ADD_TODO: "add-todo",
   TOGGLE_TODO: "toggle-todo",
   DELETE_TODO: "delete-todo",
-  EDIT_TODO: "edit-todo"
+  EDIT_TODO: "edit-todo",
+  UPDATE_TODO: "update-todo"
 };
 
 function reducer(todos, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodo(action.payload.name)];
+
     case ACTIONS.TOGGLE_TODO:
       return todos.map((todo) => {
         if (todo.id === action.payload.id) {
@@ -27,8 +29,15 @@ function reducer(todos, action) {
     case ACTIONS.EDIT_TODO:
       return todos.map((todo) => {
         if (todo.id === action.payload.id) {
-          return { ...todo, edit: true };
-        } else if (todo.edit === true) {
+          return { ...todo, edit: !todo.edit };
+        }
+        return todo;
+      });
+
+    case ACTIONS.UPDATE_TODO:
+      return todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return updateTodo(action.payload.name, action.payload.id);
         }
         return todo;
       });
@@ -40,6 +49,10 @@ function reducer(todos, action) {
 
 function newTodo(name) {
   return { id: Date.now(), name: name, complete: false, edit: false };
+}
+
+function updateTodo(name, id) {
+  return { id: id, name: name, complete: false, edit: false };
 }
 
 export default function App() {
@@ -56,7 +69,7 @@ export default function App() {
     <>
       <form onSubmit={handleSubmit}>
         <input
-          type="value"
+          type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -67,6 +80,7 @@ export default function App() {
           <Todo
             key={todo.id}
             todo={todo}
+            setName={setName}
             dispatch={dispatch}
             ACTIONS={ACTIONS}
           />
