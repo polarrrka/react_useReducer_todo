@@ -135,13 +135,13 @@ h1 {
 }
 
 .btns {
-  background: var(--primary-color);
+  background: var(--bg-color-dark);
   display: flex;
 }
 
 .btn {
   padding: 8px;
-  color: var(--bg-color-dark);
+  color: var(--primary-color);
   outline: none;
   cursor: pointer;
   text-decoration: none;
@@ -150,7 +150,7 @@ h1 {
    transition: all .1s ease-in;
 
    &:hover {
-     background: var(--bg-color-dark);
-     color: var(--primary-color);
+     color: var(--bg-color-dark);
+     background: var(--primary-color);
    }
 }
