@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from "react";
+import Todo from "./Todo";
 import "./styles.css";
 
 const ACTIONS = {
@@ -24,14 +25,21 @@ function reducer(todos, action) {
       return todos.filter((todo) => todo.id !== action.payload.id);
 
     case ACTIONS.EDIT_TODO:
-      return todos;
+      return todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, edit: true };
+        } else if (todo.edit === true) {
+        }
+        return todo;
+      });
+
     default:
       return todos;
   }
 }
 
 function newTodo(name) {
-  return { id: Date.now(), name: name, complete: false };
+  return { id: Date.now(), name: name, complete: false, edit: false };
 }
 
 export default function App() {
@@ -42,10 +50,6 @@ export default function App() {
     e.preventDefault();
     dispatch({ type: ACTIONS.ADD_TODO, payload: { name: name } });
     setName("");
-  }
-
-  function handleEdit(e) {
-    e.preventDefault();
   }
 
   return (
@@ -60,36 +64,12 @@ export default function App() {
 
       {todos.map((todo) => {
         return (
-          <ul>
-            <li
-              style={{
-                color: todo.complete ? "grey" : "black"
-              }}
-            >
-              <input
-                type="checkbox"
-                onClick={() =>
-                  dispatch({
-                    type: ACTIONS.TOGGLE_TODO,
-                    payload: { id: todo.id }
-                  })
-                }
-              />
-              {todo.name}
-
-              <button
-                onClick={() =>
-                  dispatch({
-                    type: ACTIONS.DELETE_TODO,
-                    payload: { id: todo.id }
-                  })
-                }
-              >
-                x
-              </button>
-              <button onClick={handleEdit}>edit</button>
-            </li>
-          </ul>
+          <Todo
+            key={todo.id}
+            todo={todo}
+            dispatch={dispatch}
+            ACTIONS={ACTIONS}
+          />
         );
       })}
     </>
