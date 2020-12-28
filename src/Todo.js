@@ -48,17 +48,6 @@ export default function Todo({ todo, dispatch, ACTIONS }) {
       <div className="btns">
         <button
           className="btn"
-          onClick={() =>
-            dispatch({
-              type: ACTIONS.DELETE_TODO,
-              payload: { id: todo.id }
-            })
-          }
-        >
-          ✖
-        </button>
-        <button
-          className="btn"
           onClick={() => {
             todo.edit
               ? dispatch({
@@ -72,6 +61,17 @@ export default function Todo({ todo, dispatch, ACTIONS }) {
           }}
         >
           {todo.edit ? "✔" : "✎"}
+        </button>
+        <button
+          className="btn"
+          onClick={() =>
+            dispatch({
+              type: ACTIONS.DELETE_TODO,
+              payload: { id: todo.id }
+            })
+          }
+        >
+          ✖
         </button>
       </div>
     </div>

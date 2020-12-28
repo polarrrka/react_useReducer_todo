@@ -52,7 +52,7 @@ html {
   transition: all .1s ease-in;
 
   &:hover {
-    background-color: var(--bg-color-dark);
+    background-color: var(--bg-color-light);
     color: var(--primary-color);
   }
 }
@@ -89,10 +89,6 @@ h1 {
  // box-shadow: 2px 2px 0px 0px rgba(139,179,152,1);
   cursor: pointer;
   color: var(--text-color);
-
-  &:last-child {
-    margin-bottom: 3rem;
-  }
 }
 
 .todo {
@@ -153,4 +149,17 @@ h1 {
      color: var(--bg-color-dark);
      background: var(--primary-color);
    }
+}
+
+.btn-clear {
+  margin: 1.5rem;
+  width: 50vw;
+  padding: 8px;
+  color: var(--bg-color-light);
+  background: var(--primary-color);
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: all .1s ease-in;
 }

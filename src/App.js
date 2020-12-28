@@ -7,7 +7,8 @@ const ACTIONS = {
   TOGGLE_TODO: "toggle-todo",
   DELETE_TODO: "delete-todo",
   EDIT_TODO: "edit-todo",
-  UPDATE_TODO: "update-todo"
+  UPDATE_TODO: "update-todo",
+  CLEAR_TODOS: "clear-todos"
 };
 
 function reducer(todos, action) {
@@ -16,12 +17,14 @@ function reducer(todos, action) {
       return [...todos, newTodo(action.payload.name)];
 
     case ACTIONS.TOGGLE_TODO:
-      return todos.map((todo) => {
+      const newTodos = todos.map((todo) => {
         if (todo.id === action.payload.id) {
           return { ...todo, complete: !todo.complete };
         }
         return todo;
       });
+      newTodos.sort((a, b) => a.complete - b.complete);
+      return newTodos;
 
     case ACTIONS.DELETE_TODO:
       return todos.filter((todo) => todo.id !== action.payload.id);
@@ -41,6 +44,9 @@ function reducer(todos, action) {
         }
         return todo;
       });
+
+    case ACTIONS.CLEAR_TODOS:
+      return todos.filter((todo) => !todo.complete);
 
     default:
       return todos;
@@ -64,6 +70,11 @@ export default function App() {
     if (!name) return;
     dispatch({ type: ACTIONS.ADD_TODO, payload: { name: name } });
     setName("");
+  }
+
+  function handleClear(e) {
+    e.preventDefault();
+    dispatch({ type: ACTIONS.CLEAR_TODOS });
   }
 
   return (
@@ -95,6 +106,10 @@ export default function App() {
             />
           );
         })}
+
+        <button className="btn-clear" onClick={handleClear}>
+          clear completed
+        </button>
       </div>
     </div>
   );
